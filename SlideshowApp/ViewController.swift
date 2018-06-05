@@ -57,17 +57,21 @@ class ViewController: UIViewController {
         alpha_tmp = 1.0
     }
     
-    // 画面遷移直後にメモリを掃除する。
+    // 画面遷移直後にタイマー処理を掃除する。
     override func viewDidDisappear(_ animated: Bool){
         if self.timer_1 != nil {
             self.timer_1.invalidate()
+            self.timer_1 = nil
         }
-        self.timer_1 = nil
         
         if self.timerForPictureGo_1 != nil {
             self.timerForPictureGo_1.invalidate()
+            self.timerForPictureGo_1 = nil
+            
+            // 画像の入れ替え処理を完了させる。
+            UIImageView_2.image = UIImageView_1.image
+            UIImageView_2.alpha = 1.0
         }
-        self.timerForPictureGo_1 = nil
     }
     
     
@@ -105,8 +109,10 @@ class ViewController: UIViewController {
         }
         else if Flag_Slideshow_1 == true {
             //スライドショーを停止する。
-            self.timer_1.invalidate()
-            self.timer_1 = nil
+            if self.timer_1 != nil {
+                self.timer_1.invalidate()
+                self.timer_1 = nil
+            }
             
             //スライドショー停止ステータスにする。
             Flag_Slideshow_1 = false
@@ -157,8 +163,10 @@ class ViewController: UIViewController {
         }
             // 透明にする処理が完了した後の処理
         else {
-            self.timerForPictureGo_1.invalidate()
-            self.timerForPictureGo_1 = nil
+            if self.timerForPictureGo_1 != nil {
+                self.timerForPictureGo_1.invalidate()
+                self.timerForPictureGo_1 = nil
+            }
             
             // 画像の入れ替え処理
             UIImageView_2.image = UIImageView_1.image
