@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     var Flag_Slideshow_1: Bool = false
     
     // カウンター変数
-    var i: Int = 0
     var alpha_tmp: Float = 1.0
     var ImageNumber: Int = 0
     
@@ -36,11 +35,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        //画像を描画する。
-        UIImageView_1.image = image[1]
+        //初期画像を格納する。
+        UIImageView_1.image = image[0]
         UIImageView_1.alpha = 1.0
         UIImageView_2.image = image[0]
         UIImageView_2.alpha = 1.0
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,15 +48,31 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(_ animated: Bool) {  // ←ここの定義で"_"を記載しなければならない理由が不明。
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //初期化
-        Flag_Slideshow_1 = false
+        
+        // 各パラメータの初期化
         SlideshowButton_1.setTitle("再生する", for: .normal)
-         i = 0
-         alpha_tmp = 1.0
-         ImageNumber = 0
+        Flag_Slideshow_1 = false
+        alpha_tmp = 1.0
     }
+    
+    // 画面遷移直後にメモリを掃除する。
+    override func viewDidDisappear(_ animated: Bool){
+        if self.timer_1 != nil {
+            self.timer_1.invalidate()
+        }
+        self.timer_1 = nil
+        
+        if self.timerForPictureGo_1 != nil {
+            self.timerForPictureGo_1.invalidate()
+        }
+        self.timerForPictureGo_1 = nil
+    }
+    
+    
+    
+    
     
     //進むボタン
     @IBAction func GoButton_1(_ sender: UIButton) {
@@ -95,96 +111,88 @@ class ViewController: UIViewController {
             //スライドショー停止ステータスにする。
             Flag_Slideshow_1 = false
             SlideshowButton_1.setTitle("再生する", for: .normal)
-            
         }
-        
     }
     
     
     //画像を進める関数
     @objc func PictureGo() {
-        ImageNumber += 1
-        
         // 画像の差し替え (画像が入れ替わり切るまで「進む」ボタンの効果は出ない仕様。)
         if UIImageView_2.alpha == 1.0 {
-            self.timerForPictureGo_1 = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(PictureTuning(mode:)), userInfo: "Go", repeats: true)
+            // 配列の中から画像の取り出し
+            ImageNumber += 1
+
+            self.timerForPictureGo_1 = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(PictureTuning), userInfo: nil, repeats: true)
         }
     }
+    
     
     //画像を戻す関数
     func PictureBack() {
-        ImageNumber -= 1
-        
         // 画像の差し替え (画像が入れ替わり切るまで「戻る」ボタンの効果は出ない仕様。)
         if UIImageView_2.alpha == 1.0 {
-            self.timerForPictureGo_1 = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(PictureTuning(mode:)), userInfo: "Back", repeats: true)
+            // 配列の中から画像の取り出し
+            // 配列番号がマイナスになったら最後尾の配列番号に書き換える。
+            ImageNumber -= 1
+            if ImageNumber < 0 {
+                ImageNumber = image.count - 1
+            }
+
+            self.timerForPictureGo_1 = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(PictureTuning), userInfo: nil, repeats: true)
         }
     }
     
+    
     // 画像の透明度を調整する関数
-    @objc func PictureTuning(mode: Timer) {
-        
-        let mode_tmp = mode.userInfo as! String
-        print(mode_tmp)
-        if mode_tmp == "Go" {
-            // 画像の透明度を変更する処理
-            if UIImageView_2.alpha > 0.0 {
-                // 裏側に次に表示する画像を用意する。
-                let ImageNumber_tmp: Int = (ImageNumber) % image.count
-                UIImageView_1.image = image[ImageNumber_tmp]
+    @objc func PictureTuning() {
+        // 画像の透明度を変更する処理
+        if UIImageView_2.alpha > 0.0 {
+            // 裏側に次に表示する画像を用意する。
+            let ImageNumber_tmp: Int = (ImageNumber) % image.count
+            UIImageView_1.image = image[ImageNumber_tmp]
             
-                //透明度を変更する。
-                alpha_tmp -= 0.1
-                UIImageView_2.alpha = CGFloat(alpha_tmp)
-            }
-                // 透明にする処理が完了した後の処理
-            else {
-                self.timerForPictureGo_1.invalidate()
-                self.timerForPictureGo_1 = nil
-            
-                // 画像の入れ替え処理
-                UIImageView_2.image = UIImageView_1.image
-                UIImageView_2.alpha = 1.0
-            
-                // alpha_tmpの初期化
-                alpha_tmp = 1.0
-            }
+            //透明度を変更する。
+            alpha_tmp -= 0.1
+            UIImageView_2.alpha = CGFloat(alpha_tmp)
         }
-        else if mode_tmp == "Back" {
-            // 画像の透明度を変更する処理
-            if UIImageView_2.alpha > 0.0 {
-                // 裏側に次に表示する画像を用意する。
-                let ImageNumber_tmp: Int = (ImageNumber) % image.count
-                UIImageView_1.image = image[ImageNumber_tmp]
-                
-                //透明度を変更する。
-                alpha_tmp -= 0.1
-                UIImageView_2.alpha = CGFloat(alpha_tmp)
-            }
-                // 透明にする処理が完了した後の処理
-            else {
-                self.timerForPictureGo_1.invalidate()
-                self.timerForPictureGo_1 = nil
-                
-                // 画像の入れ替え処理
-                UIImageView_2.image = UIImageView_1.image
-                UIImageView_2.alpha = 1.0
-                
-                // alpha_tmpの初期化
-                alpha_tmp = 1.0
-            }
+            // 透明にする処理が完了した後の処理
+        else {
+            self.timerForPictureGo_1.invalidate()
+            self.timerForPictureGo_1 = nil
+            
+            // 画像の入れ替え処理
+            UIImageView_2.image = UIImageView_1.image
+            UIImageView_2.alpha = 1.0
+            
+            // alpha_tmpの初期化
+            alpha_tmp = 1.0
         }
     }
 
-
-
-
-
-
-
+    
+    
+    
+    // 画面遷移時の処理
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let EPViewController: ExpandPictureViewController = segue.destination as! ExpandPictureViewController
+        
+        // 現在表示されている画像を遷移先に渡す。
+        EPViewController.image_1 = UIImageView_2.image
+    }
+    
+    
+    
+    @IBAction func unwind(_ segue: UIStoryboardSegue) {
+    }
+    
+    
 
 
 }
+
+
+
+
 
 
 

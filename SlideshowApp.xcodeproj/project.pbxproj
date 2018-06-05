@@ -13,6 +13,10 @@
 		586C486520BE8C3B00951D93 /* SlideshowApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 586C486320BE8C3B00951D93 /* SlideshowApp.xcdatamodeld */; };
 		586C486720BE8C3D00951D93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586C486620BE8C3D00951D93 /* Assets.xcassets */; };
 		586C486A20BE8C3E00951D93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 586C486820BE8C3E00951D93 /* LaunchScreen.storyboard */; };
+		586C487820BEA17D00951D93 /* IMG_1435.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 586C487620BEA17D00951D93 /* IMG_1435.jpg */; };
+		586C487920BEA17D00951D93 /* IMG_1400.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 586C487720BEA17D00951D93 /* IMG_1400.jpg */; };
+		586C487B20BEA80C00951D93 /* IMG_1383.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 586C487A20BEA80C00951D93 /* IMG_1383.jpg */; };
+		58D7A07220C22ECD0069997D /* ExpandPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D7A07120C22ECD0069997D /* ExpandPictureViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		586C486620BE8C3D00951D93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		586C486920BE8C3E00951D93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		586C486B20BE8C3E00951D93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		586C487620BEA17D00951D93 /* IMG_1435.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = IMG_1435.jpg; path = SlideshowApp/Picture/IMG_1435.jpg; sourceTree = SOURCE_ROOT; };
+		586C487720BEA17D00951D93 /* IMG_1400.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = IMG_1400.jpg; path = SlideshowApp/Picture/IMG_1400.jpg; sourceTree = SOURCE_ROOT; };
+		586C487A20BEA80C00951D93 /* IMG_1383.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = IMG_1383.jpg; path = SlideshowApp/Picture/IMG_1383.jpg; sourceTree = SOURCE_ROOT; };
+		58D7A07120C22ECD0069997D /* ExpandPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandPictureViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +64,10 @@
 		586C485B20BE8C3B00951D93 /* SlideshowApp */ = {
 			isa = PBXGroup;
 			children = (
+				586C487120BEA02000951D93 /* Picture */,
 				586C485C20BE8C3B00951D93 /* AppDelegate.swift */,
 				586C485E20BE8C3B00951D93 /* ViewController.swift */,
+				58D7A07120C22ECD0069997D /* ExpandPictureViewController.swift */,
 				586C486020BE8C3B00951D93 /* Main.storyboard */,
 				586C486620BE8C3D00951D93 /* Assets.xcassets */,
 				586C486820BE8C3E00951D93 /* LaunchScreen.storyboard */,
@@ -65,6 +75,17 @@
 				586C486320BE8C3B00951D93 /* SlideshowApp.xcdatamodeld */,
 			);
 			path = SlideshowApp;
+			sourceTree = "<group>";
+		};
+		586C487120BEA02000951D93 /* Picture */ = {
+			isa = PBXGroup;
+			children = (
+				586C487720BEA17D00951D93 /* IMG_1400.jpg */,
+				586C487620BEA17D00951D93 /* IMG_1435.jpg */,
+				586C487A20BEA80C00951D93 /* IMG_1383.jpg */,
+			);
+			name = Picture;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +146,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				586C487820BEA17D00951D93 /* IMG_1435.jpg in Resources */,
+				586C487920BEA17D00951D93 /* IMG_1400.jpg in Resources */,
 				586C486A20BE8C3E00951D93 /* LaunchScreen.storyboard in Resources */,
 				586C486720BE8C3D00951D93 /* Assets.xcassets in Resources */,
+				586C487B20BEA80C00951D93 /* IMG_1383.jpg in Resources */,
 				586C486220BE8C3B00951D93 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				586C485F20BE8C3B00951D93 /* ViewController.swift in Sources */,
+				58D7A07220C22ECD0069997D /* ExpandPictureViewController.swift in Sources */,
 				586C486520BE8C3B00951D93 /* SlideshowApp.xcdatamodeld in Sources */,
 				586C485D20BE8C3B00951D93 /* AppDelegate.swift in Sources */,
 			);
